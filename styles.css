@@ -1,0 +1,80 @@
+:root{
+    --theme-color-1: rgb(218, 218, 218);
+    --theme-color-2: rgb(255, 255, 255);
+}
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header{
+    background-color: var(--theme-color-2);
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 20px;
+    box-shadow: 0px 5px 2px rgb(187, 187, 187);
+    z-index: 1;
+}
+
+
+
+main{
+    background-color: var(--theme-color-1);
+    padding-top: 20px;
+    flex: 1;
+}
+
+#main-content{
+    display: flex;
+    justify-content: center;
+}
+
+#newBook{
+    background-color: rgb(250, 235, 215);
+    font-size: 1.3rem;
+    font-weight: 800;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#newBook:hover{
+    background-color: rgb(255, 225, 186);
+}
+
+#newBook:active{
+    background-color: rgb(252, 213, 161);
+}
+
+
+
+
+
+
+footer{
+    background: var(--theme-color-1);
+    text-align: center;
+    padding: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+
+#overlay{
+    display: none;
+}

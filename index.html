@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <header>
+        <h1>My Library</h1>
+    </header>
+
+    <main>
+        <div id="main-content">
+            <button id="newBook">+ Add Book</button>
+    
+            <div class="bookGrid">
+    
+            </div>
+
+        </div>
+        
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2025 HWaterCoding (github icon)</p>
+    </footer>
+
+
+    <div id="overlay">
+        <div class="modal">
+            <form method="get">
+                <h1>Add New Book</h1>
+                <input type="text" placeholder="Title"> 
+                <input type="text" placeholder="Author">
+                <input type="number" placeholder="Pages">
+                <label for="checkbox">Read</label><input type="checkbox">
+                <button type="submit">Add to Library</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
