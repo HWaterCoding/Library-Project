@@ -2,7 +2,7 @@
 const newBook = document.getElementById("newBook");
 const overlay = document.getElementById("overlay");
 newBook.addEventListener("click", () => {
-    overlay.style.display = "block";
+    overlay.style.display = "flex";
 });
 
 

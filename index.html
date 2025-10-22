@@ -30,14 +30,16 @@
 
 
     <div id="overlay">
-        <div class="modal">
+        <div id="modal">
             <form method="get">
                 <h1>Add New Book</h1>
                 <input type="text" placeholder="Title"> 
                 <input type="text" placeholder="Author">
                 <input type="number" placeholder="Pages">
-                <label for="checkbox">Read</label><input type="checkbox">
-                <button type="submit">Add to Library</button>
+                <div>
+                    <label for="checkbox">Have you read this book?</label><input type="checkbox">
+                </div>
+                <button type="submit" id="addBook">Add to Library</button>
             </form>
         </div>
     </div>
