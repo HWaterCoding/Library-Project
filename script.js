@@ -1,3 +1,13 @@
+//psuedocode javascript process:
+//create 4 variables linked to all 4 user inputs (title, author, pages, checkbox)
+//variable needs to store value of user inputs
+//create variable linked to add to library button. (addBook)
+//create a new card when addBook pressed
+//retrieve user input values and display as textcontent for new card
+
+
+
+
 //onclick of newBook btn, display overlay as block to prompt user input for form
 const newBook = document.getElementById("newBook");
 const overlay = document.getElementById("overlay");
@@ -18,12 +28,11 @@ const myLibrary = [book1, book2, book3];
 
 
 //constructor function to create new books
-function Book(title, author, pages, read, genre){
+function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.genre = genre;
     // add function
     return `hhhh`
 }

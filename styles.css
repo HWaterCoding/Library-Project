@@ -63,21 +63,6 @@ main{
 
 
 
-
-
-
-footer{
-    background: var(--theme-color-1);
-    text-align: center;
-    padding: 5px;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-
-
-
-
 /* Overlay / Modal */
 #overlay{
     display: none;
@@ -145,4 +130,14 @@ form h1{
     right: -20px;
     top: -20px;
     cursor: pointer;
+}
+
+
+/* footer */
+footer{
+    background: var(--theme-color-1);
+    text-align: center;
+    padding: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
