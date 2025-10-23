@@ -5,6 +5,12 @@ newBook.addEventListener("click", () => {
     overlay.style.display = "flex";
 });
 
+//Create and store button to close modal onclick
+const closeModalBtn = document.getElementById("closeModalBtn");
+closeModalBtn.addEventListener("click", () => {
+    overlay.style.display = "none";
+})
+
 
 
 //library array to hold all book objects
