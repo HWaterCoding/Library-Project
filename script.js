@@ -1,14 +1,20 @@
-//psuedocode javascript process:
-//create 4 variables linked to all 4 user inputs (title, author, pages, checkbox)
-//variable needs to store value of user inputs
-//create variable linked to add to library button. (addBook)
-//create a new card when addBook pressed
-//retrieve user input values and display as textcontent for new card
+//5 variables for user inputs on form 
+const titleInput = document.getElementById("titleInput");
+const authorInput = document.getElementById("authorInput");
+const pagesInput = document.getElementById("pagesInput");
+const readCheckbox = document.getElementById("readCheckbox");
+
+//form submission event listener to call functions 
+const form = document.getElementById("form");
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    overlay.style.display = "none";
+    addBookToLibrary();
+    displayBooks();
+});
 
 
-
-
-//onclick of newBook btn, display overlay as block to prompt user input for form
+//onclick of newBook btn, display modal form for user inputs
 const newBook = document.getElementById("newBook");
 const overlay = document.getElementById("overlay");
 newBook.addEventListener("click", () => {
@@ -22,29 +28,36 @@ closeModalBtn.addEventListener("click", () => {
 })
 
 
-
 //library array to hold all book objects
-const myLibrary = [book1, book2, book3];
+const myLibrary = [];
 
 
 //constructor function to create new books
 function Book(title, author, pages, read){
+    this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-    // add function
-    return `hhhh`
 }
-
 
 //function to add books once constructed to the array using push()
 function addBookToLibrary(){
-    //take parameters to create new book
-    //assign a unique ID to every book
-    crypto.randomUUID()
-    //store that book in array using push()
+    const titleValue = titleInput.value;
+    const authorValue = authorInput.value;
+    const pagesValue = pagesInput.value;
+    const checkboxValue = readCheckbox.checked;
+    const newBook = new Book(titleValue, authorValue, pagesValue, checkboxValue);
+    myLibrary.push(newBook);
 }
 
 
+
+
 //create a function to loop through the array
+function displayBooks(){
+
+}
+
+
+//add button to remove book from library and make it so it asks for confirmation ("are you sure?")

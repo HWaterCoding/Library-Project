@@ -61,6 +61,19 @@ main{
     background-color: rgb(252, 213, 161);
 }
 
+/* GRID:: */
+/* style the grid like it were an open book */
+/* style each "card" like it were a piece of paper */
+/* OR */
+/* style the grid as a bookcase and have each book be a randomly-colored book */
+
+
+/* REMOVE BUTTON:: */
+/* //add button to remove book from library and make it so it asks for confirmation ("are you sure?") */
+
+
+
+
 
 
 /* Overlay / Modal */
@@ -118,6 +131,7 @@ form h1{
     border: none;
     width: 80%;
     padding: 10px;
+    cursor: pointer;
 }
 
 #closeModalBtn{
@@ -131,6 +145,11 @@ form h1{
     top: -20px;
     cursor: pointer;
 }
+
+
+
+
+
 
 
 /* footer */

@@ -16,7 +16,7 @@
         <div id="main-content">
             <button id="newBook">+ New Book</button>
     
-            <div class="bookGrid">
+            <div id="bookGrid">
     
             </div>
 
@@ -32,14 +32,14 @@
     <div id="overlay">
         <div id="modal">
             <button id="closeModalBtn">X</button>
-            <form method="get">
+            <form id="form">
                 <h1>Add New Book</h1>
-                <input type="text" placeholder="Title"> 
-                <input type="text" placeholder="Author">
-                <input type="number" placeholder="Pages">
+                <input type="text" placeholder="Title" id="titleInput" required> 
+                <input type="text" placeholder="Author" id="authorInput" required>
+                <input type="number" placeholder="# of Pages" id="pagesInput" required>
                 <div>
-                    <label for="checkbox">Have you read this book?</label>
-                    <input type="checkbox">
+                    <label for="readCheckbox">Have you read this book?</label>
+                    <input type="checkbox" id="readCheckbox">
                 </div>
                 <button type="submit" id="addBook">Add to Library</button>
             </form>
