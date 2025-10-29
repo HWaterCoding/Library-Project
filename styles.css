@@ -34,7 +34,6 @@ header{
 
 main{
     background-color: var(--theme-color-1);
-    padding-top: 20px;
     display: flex;
     flex: 1;
 }
@@ -53,7 +52,7 @@ main{
     font-weight: 800;
     padding: 15px;
     border-radius: 15px;
-    margin: 10px;
+    margin: 40px;
     cursor: pointer;
 }
 
@@ -64,6 +63,8 @@ main{
 #newBook:active{
     background-color: rgb(252, 213, 161);
 }
+/* FORM: MAKE FORM LOOK LIKE OPEN BOOK THAT YOU'RE WRITING IN? */
+
 
 /* GRID:: */
 /* style the grid like it were an open book */
@@ -72,13 +73,11 @@ main{
 /* style the grid as a bookcase and have each book be a randomly-colored book */
 
 
-/* REMOVE BUTTON:: */
-/* //add button to remove book from library and make it so it asks for confirmation ("are you sure?") */
-
 
 /* Grid + books + buttons on books */
 #bookGrid{
     height: 100%;
+    width: 80%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -134,9 +133,94 @@ main{
 }
 
 
+
+/* Remove book button */
+.removeBookBtn{
+    background-color: rgb(255, 0, 0);
+    color: white;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    width: 80%;
+}
+
+#modal2{
+    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: rgb(211, 200, 200);
+    width: 600px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 10px rgb(128, 121, 121);
+}
+
+#modal2 h1{
+    text-align: center;
+    margin: 10px;
+}
+
+#modal2 div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 10px;
+}
+
+#close2ndModalBtn{
+    position: absolute;
+    background-color: red;
+    font-weight: 800;
+    aspect-ratio: 1/1;
+    font-size: 28px;
+    width: 40px;
+    right: -20px;
+    top: -20px;
+    cursor: pointer;
+}
+
+#yesDelete{
+    background-color: rgb(0, 128, 0);
+    border-radius: 10px;
+    font-size: 1.4rem;
+    width: 40%;
+    padding: 20px;
+    cursor: pointer;
+}
+
+#yesDelete:hover{
+    background-color: rgb(0, 172, 0);
+    
+}
+
+#yesDelete:active{
+    background-color: rgb(2, 75, 2);
+}
+
+#noDelete{
+    background-color: rgb(255, 0, 0);
+    border-radius: 10px;
+    font-size: 1.4rem;
+    width: 40%;
+    padding: 20px;
+    cursor: pointer;
+}
+
+#noDelete:hover{
+    background-color: rgb(168, 0, 0);
+}
+
+#noDelete:active{
+    background-color: rgb(141, 59, 59);
+}
+
 /* Overlay / Modal */
 #overlay{
-    display: none;
+    /* display: none; */
+    display: flex;
     position: fixed;
     inset: 0;
     width: 100%;
@@ -148,6 +232,7 @@ main{
 }
 
 #modal{
+    display: none;
     position: relative;
     background-color: rgb(114, 85, 85);
     width: 400px;

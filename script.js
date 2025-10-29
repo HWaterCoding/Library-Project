@@ -3,26 +3,52 @@ const titleInput = document.getElementById("titleInput");
 const authorInput = document.getElementById("authorInput");
 const pagesInput = document.getElementById("pagesInput");
 const readCheckbox = document.getElementById("readCheckbox");
+//Overlay, Grid, and Modal variables
 const overlay = document.getElementById("overlay");
+const bookGrid = document.getElementById("bookGrid");
+const addBookModal = document.getElementById("modal");
+const removeBookModal = document.getElementById("modal2");
+
+
+//YES/NO BUTTONS FOR DELETING BOOK INTERFACE
+const yesDeleteBtn = document.getElementById("yesDelete")
+yesDeleteBtn.addEventListener("click", () =>{
+    overlay.style.display = "none";
+    //needs to delete the book object that the removeButton is on using it's unique ID?
+    //(Might need to put this in displayBooks() function)
+})
+
+const noDeleteBtn = document.getElementById("noDelete")
+noDeleteBtn.addEventListener("click", () =>{
+    overlay.style.display = "none";
+})
 
 
 //onclick of newBook btn, display modal form for user inputs
 const newBook = document.getElementById("newBook");
 newBook.addEventListener("click", () => {
     overlay.style.display = "flex";
+    removeBookModal.style.display = "none";
+    addBookModal.style.display = "block";
+    clearForm();
 });
 
-//Create and store button to close modal onclick
+//Create and store buttons to close modals onclick
 const closeModalBtn = document.getElementById("closeModalBtn");
 closeModalBtn.addEventListener("click", () => {
     overlay.style.display = "none";
+    clearForm();
 })
 
+const close2ndModalBtn = document.getElementById("close2ndModalBtn");
+close2ndModalBtn.addEventListener("click", () =>{
+    overlay.style.display = "none";
+})
 
 //library array to hold all book objects
 const myLibrary = [];
 
-//constructor function to create new books
+//Book Object Constructor Function
 function Book(title, author, pages, read){
     this.id = crypto.randomUUID();
     this.title = title;
@@ -31,7 +57,7 @@ function Book(title, author, pages, read){
     this.read = read;
 }
 
-//function to add books once constructed to the array using push()
+//Function to create New books and store in myLibrary array
 function addBookToLibrary(){
     const titleValue = titleInput.value;
     const authorValue = authorInput.value;
@@ -40,6 +66,17 @@ function addBookToLibrary(){
     const newBook = new Book(titleValue, authorValue, pagesValue, checkboxValue);
     myLibrary.push(newBook);
 }
+
+//form submission event listener to call functions 
+const form = document.getElementById("form");
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    overlay.style.display = "none";
+    addBookModal.style.display = "none";
+    addBookToLibrary();
+    bookGrid.innerHTML = "";
+    displayBooks();
+});
 
 
 //create a function to loop through the array
@@ -61,37 +98,58 @@ function displayBooks(){
         bookElement.appendChild(pagesP);
 
         const readButton = document.createElement("button");
-        if(bookObj.readButton){
-            //if checked, apply read button class
+        if(bookObj.read){
+            readButton.classList.add("readButton")
+            readButton.textContent = "Read";
         } else {
-            //if unchecked, apply notRead button class
+            readButton.classList.add("notReadButton")
+            readButton.textContent = "Unread";
         }   
-
         readButton.addEventListener("click", () =>{
-            //one to turn read button into notRead
-            //(remove current class, add opposite class, change text content)
-        })
-        readButton.addEventListener("click", () =>{
-            //one to turn notRead button into read
-            //(remove current class, add opposite class, change text content)
-        })
-
+            if(readButton.classList.contains("readButton")){
+                readButton.classList.remove("readButton");
+                readButton.classList.add("notReadButton");
+                readButton.textContent = "Unread";
+            } else{
+                readButton.classList.remove("notReadButton");
+                readButton.classList.add("readButton");
+                readButton.textContent = "Read";
+            }
+        });
         bookElement.appendChild(readButton);
 
-
-
+        const removeBookBtn = document.createElement("button");
+        removeBookBtn.classList.add("removeBookBtn");
+        removeBookBtn.textContent = "Remove Book";
+        removeBookBtn.addEventListener("click", () =>{
+            overlay.style.display = "flex";
+            addBookModal.style.display = "none";
+            removeBookModal.style.display = "block";
+        })
+        bookElement.appendChild(removeBookBtn);
 
         bookGrid.appendChild(bookElement);
     }
 }
 
-//form submission event listener to call functions 
-const form = document.getElementById("form");
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    overlay.style.display = "none";
-    addBookToLibrary();
-    displayBooks();
-});
 
-//add button to remove book from library and make it so it asks for confirmation ("are you sure?")
+//function to clear inputs on form when book added or modal closed
+function clearForm(){
+    titleInput.value = "";
+    authorInput.value = "";
+    pagesInput.value = "";
+    readCheckbox.checked = "";
+}
+
+
+
+
+//things to do next:
+//0) Add "Genre" as a category for the inputs from the user, as well as to be appended to each Book object
+//1) (REFER TO #5)Solve how to remove Book objects from array when clicking the yesDelete button(REFER TO #5)
+//2) Change styling of user input form so it isn't ugly as fuck
+//3) Change styling of the deleteBook modal so it isn't ugly as fuck as well
+//4) Change styling of book objects so they aren't ugly as fuck
+
+//LOOK INTO WHAT THIS MEANS?
+//5) You will need to associate your DOM elements with the actual book objects in some way. One easy solution is giving them a data-attribute that corresponds to the unique id of the respective book object.
