@@ -10,22 +10,10 @@ const bookGrid = document.getElementById("bookGrid");
 const addBookModal = document.getElementById("modal");
 const removeBookModal = document.getElementById("modal2");
 
+//global variable to remain null until removeBookBtn is pressed
+//will store dataset.id of book selected for removal when removeBookBtn is pressed
+let idToDelete = null;
 
-//YES/NO BUTTONS FOR DELETING BOOK INTERFACE
-const yesDeleteBtn = document.getElementById("yesDelete")
-yesDeleteBtn.addEventListener("click", () =>{
-    
-    overlay.style.display = "none";
-
-    //needs to delete the book object that the removeButton is on using it's unique ID?
-    //(Might need to put this in displayBooks() function)
-    //maybe just call displayBooks() after deleting the object to re-loop through array
-})
-
-const noDeleteBtn = document.getElementById("noDelete")
-noDeleteBtn.addEventListener("click", () =>{
-    overlay.style.display = "none";
-})
 
 
 //onclick of newBook btn, display modal form for user inputs
@@ -50,7 +38,7 @@ close2ndModalBtn.addEventListener("click", () =>{
 })
 
 //library array to hold all book objects
-const myLibrary = [];
+let myLibrary = [];
 
 //Book Object Constructor Function
 function Book(title, author, genre, pages, read){
@@ -88,8 +76,10 @@ form.addEventListener("submit", (event) => {
 //create a function to loop through the array
 function displayBooks(){
     for(const bookObj of myLibrary){
+
         const bookElement = document.createElement("div");
-        bookElement.classList.add("book")
+        bookElement.classList.add("book");
+        bookElement.dataset.id = bookObj.id;
         //Create random color for background of book using math.random()
 
         const titleh1 = document.createElement("h1");
@@ -132,7 +122,10 @@ function displayBooks(){
         const removeBookBtn = document.createElement("button");
         removeBookBtn.classList.add("removeBookBtn");
         removeBookBtn.textContent = "Remove Book";
-        removeBookBtn.addEventListener("click", () =>{
+        removeBookBtn.addEventListener("click", (event) =>{
+            const bookElement = event.target.closest(".book");
+            idToDelete = bookElement.dataset.id;
+
             overlay.style.display = "flex";
             addBookModal.style.display = "none";
             removeBookModal.style.display = "block";
@@ -142,6 +135,23 @@ function displayBooks(){
         bookGrid.appendChild(bookElement);
     }
 }
+
+const yesDeleteBtn = document.getElementById("yesDelete")
+yesDeleteBtn.addEventListener("click", () =>{            
+    myLibrary = myLibrary.filter(book => book.id !== idToDelete);
+    idToDelete = null;
+    overlay.style.display = "none";
+    removeBookModal.style.display = "none";
+    bookGrid.innerHTML = "";
+    displayBooks();
+})
+
+const noDeleteBtn = document.getElementById("noDelete")
+noDeleteBtn.addEventListener("click", () =>{
+    overlay.style.display = "none";
+    removeBookModal.style.display = "none";
+    idToDelete = null;
+})
 
 
 //function to clear inputs on form when book added or modal closed
@@ -157,11 +167,11 @@ function clearForm(){
 
 
 //things to do next:
-//0) Add "Genre" as a category for the inputs from the user, as well as to be appended to each Book object
-//1) (REFER TO #5)Solve how to remove Book objects from array when clicking the yesDelete button(REFER TO #5)
+
 //2) Change styling of user input form so it isn't ugly as fuck
 //3) Change styling of the deleteBook modal so it isn't ugly as fuck as well
 //4) Change styling of book objects so they aren't ugly as fuck
 
 //LOOK INTO WHAT THIS MEANS?
+//1) (REFER TO #5)Solve how to remove Book objects from array when clicking the yesDelete button(REFER TO #5)
 //5) You will need to associate your DOM elements with the actual book objects in some way. One easy solution is giving them a data-attribute that corresponds to the unique id of the respective book object.
