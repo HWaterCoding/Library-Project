@@ -79,7 +79,7 @@ main{
     height: 100%;
     width: 80%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 50px;
 }
@@ -146,8 +146,7 @@ main{
 }
 
 #modal2{
-    /* display: none; */
-    display: flex;
+    display: none;
     flex-direction: column;
     position: relative;
     background-color: rgb(211, 200, 200);
@@ -219,8 +218,7 @@ main{
 
 /* Overlay / Modal */
 #overlay{
-    /* display: none; */
-    display: flex;
+    display: none;
     position: fixed;
     inset: 0;
     width: 100%;

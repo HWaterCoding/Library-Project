@@ -1,8 +1,9 @@
-//4 variables for user inputs on form 
+//5 variables for user inputs on form 
 const titleInput = document.getElementById("titleInput");
 const authorInput = document.getElementById("authorInput");
 const pagesInput = document.getElementById("pagesInput");
 const readCheckbox = document.getElementById("readCheckbox");
+const genreInput = document.getElementById("genreInput");
 //Overlay, Grid, and Modal variables
 const overlay = document.getElementById("overlay");
 const bookGrid = document.getElementById("bookGrid");
@@ -13,9 +14,12 @@ const removeBookModal = document.getElementById("modal2");
 //YES/NO BUTTONS FOR DELETING BOOK INTERFACE
 const yesDeleteBtn = document.getElementById("yesDelete")
 yesDeleteBtn.addEventListener("click", () =>{
+    
     overlay.style.display = "none";
+
     //needs to delete the book object that the removeButton is on using it's unique ID?
     //(Might need to put this in displayBooks() function)
+    //maybe just call displayBooks() after deleting the object to re-loop through array
 })
 
 const noDeleteBtn = document.getElementById("noDelete")
@@ -49,10 +53,11 @@ close2ndModalBtn.addEventListener("click", () =>{
 const myLibrary = [];
 
 //Book Object Constructor Function
-function Book(title, author, pages, read){
+function Book(title, author, genre, pages, read){
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
+    this.genre = genre;
     this.pages = pages;
     this.read = read;
 }
@@ -61,9 +66,10 @@ function Book(title, author, pages, read){
 function addBookToLibrary(){
     const titleValue = titleInput.value;
     const authorValue = authorInput.value;
+    const genreValue = genreInput.value;
     const pagesValue = pagesInput.value;
     const checkboxValue = readCheckbox.checked;
-    const newBook = new Book(titleValue, authorValue, pagesValue, checkboxValue);
+    const newBook = new Book(titleValue, authorValue, genreValue, pagesValue, checkboxValue);
     myLibrary.push(newBook);
 }
 
@@ -84,6 +90,7 @@ function displayBooks(){
     for(const bookObj of myLibrary){
         const bookElement = document.createElement("div");
         bookElement.classList.add("book")
+        //Create random color for background of book using math.random()
 
         const titleh1 = document.createElement("h1");
         titleh1.textContent = `${bookObj.title}`;
@@ -92,6 +99,10 @@ function displayBooks(){
         const authorh2 = document.createElement("h2");
         authorh2.textContent = `By: ${bookObj.author}`;
         bookElement.appendChild(authorh2);
+
+        const genreh2 = document.createElement("h2");
+        genreh2.textContent = `Genre: ${bookObj.genre}`;
+        bookElement.appendChild(genreh2);
 
         const pagesP = document.createElement("p");
         pagesP.textContent = `Pages: ${bookObj.pages}`;
@@ -137,6 +148,7 @@ function displayBooks(){
 function clearForm(){
     titleInput.value = "";
     authorInput.value = "";
+    genreInput.value = "";
     pagesInput.value = "";
     readCheckbox.checked = "";
 }
