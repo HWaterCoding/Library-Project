@@ -166,10 +166,11 @@ function clearForm(){
 
 //things to do next:
 
-//2) Change styling of user input form so it isn't ugly as fuck
-//3) Change styling of the deleteBook modal so it isn't ugly as fuck as well
-//4) Change styling of book objects so they aren't ugly as fuck
+//1) Change styling of book objects so they aren't ugly as fuck
+//3) fix layout of grid so the books have a fixed width that changes with window size.
 
-//LOOK INTO WHAT THIS MEANS?
-//1) (REFER TO #5)Solve how to remove Book objects from array when clicking the yesDelete button(REFER TO #5)
-//5) You will need to associate your DOM elements with the actual book objects in some way. One easy solution is giving them a data-attribute that corresponds to the unique id of the respective book object.
+
+//2) Create drop down list for sort() by options(refer to notes on phone)
+//for sort() = create new function that takes objects stored in an array, determines alphabetical order, returns a new, sorted array, and then clear the innerGrid.html and then re-call displayBooks()
+//should probably use a switch statement for this?
+//MAKE THE DEFAULT STYLE THE NEW TO OLD (SO WE HAVE TO REVERSE HOW IT USUALLY APPENDS THE BOOKS TO THE GRID)

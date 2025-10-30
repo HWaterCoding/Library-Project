@@ -73,6 +73,15 @@ main{
     background-color: rgb(252, 213, 161);
 }
 
+#sortBy{
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+#sortBy option:nth-child(even){
+    background-color: rgb(195, 199, 199);
+}
+
 
 /* GRID:: */
 /* style the grid like it were an open book */
