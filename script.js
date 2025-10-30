@@ -14,8 +14,6 @@ const removeBookModal = document.getElementById("modal2");
 //will store dataset.id of book selected for removal when removeBookBtn is pressed
 let idToDelete = null;
 
-
-
 //onclick of newBook btn, display modal form for user inputs
 const newBook = document.getElementById("newBook");
 newBook.addEventListener("click", () => {

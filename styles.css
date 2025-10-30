@@ -1,6 +1,15 @@
 :root{
+    /* Theme colors for main page */
     --theme-color-1: rgb(218, 218, 218);
     --theme-color-2: rgb(255, 255, 255);
+    /* Green button color scheme */
+    --green-default: rgb(0, 200, 0);
+    --green-hover: rgb(45, 210, 45);
+    --green-active: rgb(10, 155, 10);
+    /* Red button color scheme */
+    --red-default: rgb(255, 0, 0);
+    --red-hover: rgb(200, 10, 10);
+    --red-active: rgb(180, 10, 10);
 }
 
 *,
@@ -63,41 +72,39 @@ main{
 #newBook:active{
     background-color: rgb(252, 213, 161);
 }
-/* FORM: MAKE FORM LOOK LIKE OPEN BOOK THAT YOU'RE WRITING IN? */
 
 
 /* GRID:: */
 /* style the grid like it were an open book */
 /* style each "card" like it were a piece of paper */
-/* OR */
-/* style the grid as a bookcase and have each book be a randomly-colored book */
 
 
 
 /* Grid + books + buttons on books */
 #bookGrid{
     height: 100%;
-    width: 80%;
+    width: 85%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    /* FIX THIS TO PROPERLY SIZE THE BOOKS */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 400px;
     gap: 50px;
+    margin-bottom: 40px;
 }
 
 .book{
-    background-color: rgb(167, 108, 19);
+    background-color: rgb(179, 147, 99);
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     border-radius: 10px;
-    box-shadow: 5px 5px 2px rgb(163, 113, 113);
-    border: 2px solid green;
+    box-shadow: 5px 5px 2px rgb(156, 135, 88);
 }
 
 .readButton{
-    background-color: rgb(0, 134, 0);
+    background: var(--green-default);
     color: white;
     padding: 10px;
     border: 1px solid black;
@@ -107,15 +114,15 @@ main{
 }
 
 .readButton:hover{
-    background-color: rgb(110, 221, 110);
+    background: var(--green-hover);
 }
 
 .readButton:active{
-    background-color: rgb(6, 65, 6);
+    background: var(--green-active);
 }
 
 .notReadButton{
-    background-color: rgb(255, 0, 0);
+    background: var(--red-default);
     color: white;
     padding: 10px;
     border: 1px solid black;
@@ -125,24 +132,32 @@ main{
 }
 
 .notReadButton:hover{
-    background-color: rgb(116, 33, 33);    
+    background: var(--red-hover);
 }
 
 .notReadButton:active{
-    background-color: rgb(88, 75, 75);
+    background: var(--red-active);
 }
 
 
 
 /* Remove book button */
 .removeBookBtn{
-    background-color: rgb(255, 0, 0);
+    background: var(--red-default);
     color: white;
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px;
     font-size: 1.4rem;
     width: 80%;
+}
+
+.removeBookBtn:hover{
+    background: var(--red-hover);
+}
+
+.removeBookBtn:active{
+    background: var(--red-active);
 }
 
 #modal2{
@@ -182,7 +197,7 @@ main{
 }
 
 #yesDelete{
-    background-color: rgb(0, 128, 0);
+    background: var(--green-default);
     border-radius: 10px;
     font-size: 1.4rem;
     width: 40%;
@@ -191,16 +206,16 @@ main{
 }
 
 #yesDelete:hover{
-    background-color: rgb(0, 172, 0);
+    background: var(--green-hover);
     
 }
 
 #yesDelete:active{
-    background-color: rgb(2, 75, 2);
+    background: var(--green-active);
 }
 
 #noDelete{
-    background-color: rgb(255, 0, 0);
+    background: var(--red-default);
     border-radius: 10px;
     font-size: 1.4rem;
     width: 40%;
@@ -209,12 +224,14 @@ main{
 }
 
 #noDelete:hover{
-    background-color: rgb(168, 0, 0);
+    background: var(--red-hover);
 }
 
 #noDelete:active{
-    background-color: rgb(141, 59, 59);
+    background: var(--red-active);
 }
+
+
 
 /* Overlay / Modal */
 #overlay{
@@ -232,7 +249,8 @@ main{
 #modal{
     display: none;
     position: relative;
-    background-color: rgb(114, 85, 85);
+    background-color: rgb(212, 205, 205);
+    box-shadow: 0 0 10px 10px rgb(128, 121, 121);
     width: 400px;
     height: 500px;    
     border-radius: 10px;
@@ -264,8 +282,18 @@ form h1{
     padding: 0;
 }
 
+form label{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#readCheckbox{
+    width: 20px;
+    height: 20px;
+}
+
 #addBook{
-    background-color: rgb(123, 255, 123);
+    background: var(--green-default);
     font-size: 1.4rem;
     font-weight: 800;
     border-radius: 10px;
@@ -273,6 +301,14 @@ form h1{
     width: 80%;
     padding: 10px;
     cursor: pointer;
+}
+
+#addBook:hover{
+    background: var(--green-hover);
+}
+
+#addBook:active{
+    background: var(--green-active);
 }
 
 #closeModalBtn{
@@ -289,15 +325,12 @@ form h1{
 
 
 
-
-
-
-
 /* footer */
 footer{
-    background: var(--theme-color-1);
+    background: var(--theme-color-2);
     text-align: center;
     padding: 5px;
     font-size: 1.2rem;
     font-weight: bold;
+    box-shadow: 0px -5px 2px rgb(187, 187, 187);
 }
