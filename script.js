@@ -162,6 +162,63 @@ function clearForm(){
 }
 
 
+const sortSelect = document.getElementById("sortBy");
+sortSelect.addEventListener("change", () =>{
+    sortArray(sortSelect.value);
+    bookGrid.innerHTML = "";
+    displayBooks();
+});
+
+
+function sortArray(){
+    const selectedValue = sortSelect.value;
+    switch(selectedValue){
+    case "newToOld":
+        // myLibrary.reverse();
+    break ;
+
+    case "oldToNew":
+        // myLibrary.reverse();
+    break ;
+
+    case "titlea2z":
+        myLibrary.sort((a, b) => a.title.localeCompare(b.title));
+    break ;
+
+    case "titlez2a":
+        myLibrary.sort((a, b) => b.title.localeCompare(a.title));
+    break ;
+
+    case "authora2z":
+        myLibrary.sort((a, b) => a.author.localeCompare(b.author));
+    break ;
+
+    case "authorz2a":
+        myLibrary.sort((a, b) => b.author.localeCompare(a.author));
+    break ;
+
+    case "genrea2z":
+        myLibrary.sort((a, b) => a.genre.localeCompare(b.genre));
+    break ;
+
+    case "genrez2a":
+        myLibrary.sort((a, b) => b.genre.localeCompare(a.genre));
+    break;
+
+    case "read":
+        myLibrary.sort((a, b) => b.read - a.read);
+    break ;
+
+    case "unread":
+        myLibrary.sort((a, b) => a.read - b.read);
+    break ;        
+    }
+}
+
+
+
+//need to fix bug with "read" button on DOM elements not staying what it is when we sortArray()
+
 
 
 //things to do next:
