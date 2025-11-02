@@ -41,6 +41,7 @@ let myLibrary = [];
 //Book Object Constructor Function
 function Book(title, author, genre, pages, read){
     this.id = crypto.randomUUID();
+    this.createdDate = Date.now();
     this.title = title;
     this.author = author;
     this.genre = genre;
@@ -57,6 +58,7 @@ function addBookToLibrary(){
     const checkboxValue = readCheckbox.checked;
     const newBook = new Book(titleValue, authorValue, genreValue, pagesValue, checkboxValue);
     myLibrary.push(newBook);
+    sortArray();
 }
 
 //form submission event listener to call functions 
@@ -66,19 +68,18 @@ form.addEventListener("submit", (event) => {
     overlay.style.display = "none";
     addBookModal.style.display = "none";
     addBookToLibrary();
-    bookGrid.innerHTML = "";
     displayBooks();
 });
 
 
 //create a function to loop through the array
 function displayBooks(){
+    bookGrid.innerHTML = "";
     for(const bookObj of myLibrary){
 
         const bookElement = document.createElement("div");
         bookElement.classList.add("book");
         bookElement.dataset.id = bookObj.id;
-        //Create random color for background of book using math.random()
 
         const titleh1 = document.createElement("h1");
         titleh1.textContent = `${bookObj.title}`;
@@ -140,7 +141,6 @@ yesDeleteBtn.addEventListener("click", () =>{
     idToDelete = null;
     overlay.style.display = "none";
     removeBookModal.style.display = "none";
-    bookGrid.innerHTML = "";
     displayBooks();
 })
 
@@ -165,20 +165,19 @@ function clearForm(){
 const sortSelect = document.getElementById("sortBy");
 sortSelect.addEventListener("change", () =>{
     sortArray(sortSelect.value);
-    bookGrid.innerHTML = "";
     displayBooks();
 });
 
-
+//function to sort book objects based on criteria selected from drop-list
 function sortArray(){
     const selectedValue = sortSelect.value;
     switch(selectedValue){
     case "newToOld":
-        // myLibrary.reverse();
+        myLibrary.sort((a, b) => b.createdDate - a.createdDate);
     break ;
-
+        
     case "oldToNew":
-        // myLibrary.reverse();
+        myLibrary.sort((a, b) => a.createdDate - b.createdDate);
     break ;
 
     case "titlea2z":
@@ -212,6 +211,9 @@ function sortArray(){
     case "unread":
         myLibrary.sort((a, b) => a.read - b.read);
     break ;        
+    default:
+        myLibrary.sort((a, b) => b.createdDate - a.createdDate);
+    break;
     }
 }
 
@@ -227,7 +229,5 @@ function sortArray(){
 //3) fix layout of grid so the books have a fixed width that changes with window size.
 
 
-//2) Create drop down list for sort() by options(refer to notes on phone)
-//for sort() = create new function that takes objects stored in an array, determines alphabetical order, returns a new, sorted array, and then clear the innerGrid.html and then re-call displayBooks()
-//should probably use a switch statement for this?
+
 //MAKE THE DEFAULT STYLE THE NEW TO OLD (SO WE HAVE TO REVERSE HOW IT USUALLY APPENDS THE BOOKS TO THE GRID)
