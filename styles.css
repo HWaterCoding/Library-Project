@@ -44,15 +44,15 @@ header{
 main{
     background-color: var(--theme-color-1);
     display: flex;
+    flex-direction: column;
+    align-items: center;
     flex: 1;
 }
 
-#main-content{
+#addAndSort{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
+    gap: 40px;
+    margin: 40px;
 }
 
 #newBook{
@@ -61,7 +61,6 @@ main{
     font-weight: 800;
     padding: 15px;
     border-radius: 15px;
-    margin: 40px;
     cursor: pointer;
 }
 
@@ -74,8 +73,12 @@ main{
 }
 
 #sortBy{
-    padding: 5px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 15px;
+    cursor: pointer;
 }
 
 #sortBy option:nth-child(even){
@@ -83,26 +86,23 @@ main{
 }
 
 
-/* GRID:: */
-/* style the grid like it were an open book */
-/* style each "card" like it were a piece of paper */
+
 
 
 
 /* Grid + books + buttons on books */
 #bookGrid{
-    height: 100%;
     width: 85%;
     display: grid;
-    /* FIX THIS TO PROPERLY SIZE THE BOOKS */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* 350px wide */
+    grid-template-columns: repeat(5, 1fr);
     grid-auto-rows: 400px;
     gap: 50px;
     margin-bottom: 40px;
 }
 
 .book{
-    background-color: rgb(179, 147, 99);
+    background-color: rgb(185, 155, 100);
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -110,6 +110,15 @@ main{
     align-items: center;
     border-radius: 10px;
     box-shadow: 5px 5px 2px rgb(156, 135, 88);
+    max-width: 400px;
+    min-width: 250px;
+}
+
+
+.book h1,
+.book h2,
+.book p{
+    text-align: center;
 }
 
 .readButton{

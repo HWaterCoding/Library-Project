@@ -1,18 +1,16 @@
 //5 variables for user inputs on form 
 const titleInput = document.getElementById("titleInput");
 const authorInput = document.getElementById("authorInput");
+const genreInput = document.getElementById("genreInput");
 const pagesInput = document.getElementById("pagesInput");
 const readCheckbox = document.getElementById("readCheckbox");
-const genreInput = document.getElementById("genreInput");
 //Overlay, Grid, and Modal variables
 const overlay = document.getElementById("overlay");
 const bookGrid = document.getElementById("bookGrid");
 const addBookModal = document.getElementById("modal");
 const removeBookModal = document.getElementById("modal2");
 
-//global variable to remain null until removeBookBtn is pressed
-//will store dataset.id of book selected for removal when removeBookBtn is pressed
-let idToDelete = null;
+
 
 //onclick of newBook btn, display modal form for user inputs
 const newBook = document.getElementById("newBook");
@@ -27,13 +25,9 @@ newBook.addEventListener("click", () => {
 const closeModalBtn = document.getElementById("closeModalBtn");
 closeModalBtn.addEventListener("click", () => {
     overlay.style.display = "none";
-    clearForm();
 })
 
-const close2ndModalBtn = document.getElementById("close2ndModalBtn");
-close2ndModalBtn.addEventListener("click", () =>{
-    overlay.style.display = "none";
-})
+
 
 //library array to hold all book objects
 let myLibrary = [];
@@ -110,10 +104,12 @@ function displayBooks(){
                 readButton.classList.remove("readButton");
                 readButton.classList.add("notReadButton");
                 readButton.textContent = "Unread";
+                bookObj.read = false;
             } else{
                 readButton.classList.remove("notReadButton");
                 readButton.classList.add("readButton");
                 readButton.textContent = "Read";
+                bookObj.read = true;
             }
         });
         bookElement.appendChild(readButton);
@@ -135,6 +131,11 @@ function displayBooks(){
     }
 }
 
+//global variable to remain null until removeBookBtn is pressed
+//will store dataset.id of book selected for removal when removeBookBtn is pressed
+let idToDelete = null;
+
+//Yes and No buttons on remove book modal
 const yesDeleteBtn = document.getElementById("yesDelete")
 yesDeleteBtn.addEventListener("click", () =>{            
     myLibrary = myLibrary.filter(book => book.id !== idToDelete);
@@ -149,6 +150,11 @@ noDeleteBtn.addEventListener("click", () =>{
     overlay.style.display = "none";
     removeBookModal.style.display = "none";
     idToDelete = null;
+})
+
+const close2ndModalBtn = document.getElementById("close2ndModalBtn");
+close2ndModalBtn.addEventListener("click", () =>{
+    overlay.style.display = "none";
 })
 
 
@@ -219,7 +225,6 @@ function sortArray(){
 
 
 
-//need to fix bug with "read" button on DOM elements not staying what it is when we sortArray()
 
 
 
@@ -230,4 +235,3 @@ function sortArray(){
 
 
 
-//MAKE THE DEFAULT STYLE THE NEW TO OLD (SO WE HAVE TO REVERSE HOW IT USUALLY APPENDS THE BOOKS TO THE GRID)
