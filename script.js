@@ -12,23 +12,6 @@ const removeBookModal = document.getElementById("modal2");
 
 
 
-//onclick of newBook btn, display modal form for user inputs
-const newBook = document.getElementById("newBook");
-newBook.addEventListener("click", () => {
-    overlay.style.display = "flex";
-    removeBookModal.style.display = "none";
-    addBookModal.style.display = "block";
-    clearForm();
-});
-
-//Create and store buttons to close modals onclick
-const closeModalBtn = document.getElementById("closeModalBtn");
-closeModalBtn.addEventListener("click", () => {
-    overlay.style.display = "none";
-})
-
-
-
 //library array to hold all book objects
 let myLibrary = [];
 
@@ -55,6 +38,32 @@ function addBookToLibrary(){
     sortArray();
 }
 
+
+
+//function to clear inputs on form when book added or modal closed
+function clearForm(){
+    titleInput.value = "";
+    authorInput.value = "";
+    genreInput.value = "";
+    pagesInput.value = "";
+    readCheckbox.checked = "";
+}
+
+//onclick of newBook btn, display modal form for user inputs
+const newBook = document.getElementById("newBook");
+newBook.addEventListener("click", () => {
+    overlay.style.display = "flex";
+    removeBookModal.style.display = "none";
+    addBookModal.style.display = "block";
+    clearForm();
+});
+
+//Button to close newBook modal
+const closeModalBtn = document.getElementById("closeModalBtn");
+closeModalBtn.addEventListener("click", () => {
+    overlay.style.display = "none";
+})
+
 //form submission event listener to call functions 
 const form = document.getElementById("form");
 form.addEventListener("submit", (event) => {
@@ -66,7 +75,8 @@ form.addEventListener("submit", (event) => {
 });
 
 
-//create a function to loop through the array
+
+//Loops through library array, creates book elements for objects, displays those books on page
 function displayBooks(){
     bookGrid.innerHTML = "";
     for(const bookObj of myLibrary){
@@ -135,7 +145,7 @@ function displayBooks(){
 //will store dataset.id of book selected for removal when removeBookBtn is pressed
 let idToDelete = null;
 
-//Yes and No buttons on remove book modal
+//Yes, No and Close buttons on remove book modal
 const yesDeleteBtn = document.getElementById("yesDelete")
 yesDeleteBtn.addEventListener("click", () =>{            
     myLibrary = myLibrary.filter(book => book.id !== idToDelete);
@@ -158,16 +168,8 @@ close2ndModalBtn.addEventListener("click", () =>{
 })
 
 
-//function to clear inputs on form when book added or modal closed
-function clearForm(){
-    titleInput.value = "";
-    authorInput.value = "";
-    genreInput.value = "";
-    pagesInput.value = "";
-    readCheckbox.checked = "";
-}
 
-
+//Drop-down select list to sort library. Call sort function then re-display books.
 const sortSelect = document.getElementById("sortBy");
 sortSelect.addEventListener("change", () =>{
     sortArray(sortSelect.value);
@@ -222,16 +224,4 @@ function sortArray(){
     break;
     }
 }
-
-
-
-
-
-
-//things to do next:
-
-//1) Change styling of book objects so they aren't ugly as fuck
-//3) fix layout of grid so the books have a fixed width that changes with window size.
-
-
 
