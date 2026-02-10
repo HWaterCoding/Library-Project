@@ -30,6 +30,7 @@ class Book{
     }
 }
 
+
 //Library class to handle the entire array fo books logic
 class Library{
     constructor(){
@@ -45,6 +46,14 @@ class Library{
         const newBook = new Book(titleValue, authorValue, genreValue, pagesValue, checkboxValue);
         library.push(newBook);
         sortLibrary();
+    }
+    
+    addBook(book){
+        this.library.push(book);
+    }
+
+    removeBook(idToDelete){
+        this.library = library.filter(book => book.id !== idToDelete);
     }
 
     sortLibrary(){
@@ -100,6 +109,10 @@ class Library{
     }
 }
 
+const myLibrary = new Library();
+
+
+//class to handle the UI of the library and display it. 
 class LibraryUI{
     constructor(){
 
@@ -134,12 +147,23 @@ closeModalBtn.addEventListener("click", () => {
 })
 
 //form submission event listener to call functions 
-const form = document.getElementById("form");
-form.addEventListener("submit", (event) => {
+const addBookForm = document.getElementById("form");
+addBookForm.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    const book = new Book(
+        titleInput.value,
+        authorInput.value,
+        genreInput.value,
+        pagesInput.value,
+        readCheckbox.checked
+    );
+
     overlay.style.display = "none";
     addBookModal.style.display = "none";
-    addBookToLibrary();
+
+    myLibrary.add(book);
+    myLibrary.sortLibrary(sortSelect.value);
     displayBooks();
 });
 
