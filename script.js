@@ -86,7 +86,8 @@ class Library{
 
         case "unread":
             this.library.sort((a, b) => a.read - b.read);
-        break ;        
+        break ;      
+
         default:
             this.library.sort((a, b) => b.createdDate - a.createdDate);
         break;
@@ -102,11 +103,11 @@ const myLibrary = new Library();
 
 
 //class to handle the UI of the library and display it. 
-// class LibraryUI{
-//     constructor(){
+class LibraryUI{
+    constructor(){
 
-//     }
-// }
+    }
+}
 
 
 //function to clear inputs on form when book added or modal closed
@@ -189,17 +190,18 @@ function displayBooks(){
             readButton.classList.add("notReadButton")
             readButton.textContent = "Unread";
         }   
-        readButton.addEventListener("click", () =>{
-            if(readButton.classList.contains("readButton")){
+
+        readButton.addEventListener("click", ()=>{
+            if(bookObj.read){
                 readButton.classList.remove("readButton");
                 readButton.classList.add("notReadButton");
                 readButton.textContent = "Unread";
-                bookObj.read = false;
+                bookObj.toggleRead();
             } else{
                 readButton.classList.remove("notReadButton");
                 readButton.classList.add("readButton");
                 readButton.textContent = "Read";
-                bookObj.read = true;
+                bookObj.toggleRead();
             }
         });
         bookElement.appendChild(readButton);
@@ -256,6 +258,7 @@ sortSelect.addEventListener("change", () =>{
     myLibrary.sortLibrary(sortSelect.value);
     displayBooks();
 });
+
 
 
 
