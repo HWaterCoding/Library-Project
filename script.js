@@ -42,7 +42,7 @@ class Library{
     }
 
     removeBook(idToDelete){
-        this.library = library.filter(book => book.id !== idToDelete);
+        this.library = this.library.filter(book => book.id !== idToDelete);
     }
 
     sortLibrary(){
@@ -228,8 +228,8 @@ let idToDelete = null;
 
 //Yes, No and Close buttons on remove book modal
 const yesDeleteBtn = document.getElementById("yesDelete")
-yesDeleteBtn.addEventListener("click", () =>{            
-    myLibrary.allBooks = myLibrary.allBooks.filter(book => book.id !== idToDelete);
+yesDeleteBtn.addEventListener("click", () =>{
+    myLibrary.removeBook(idToDelete);    
     idToDelete = null;
     overlay.style.display = "none";
     removeBookModal.style.display = "none";
@@ -253,7 +253,7 @@ close2ndModalBtn.addEventListener("click", () =>{
 //Drop-down select list to sort library. Call sort function then re-display books.
 const sortSelect = document.getElementById("sortBy");
 sortSelect.addEventListener("change", () =>{
-    sortLibrary(sortSelect.value);
+    myLibrary.sortLibrary(sortSelect.value);
     displayBooks();
 });
 
