@@ -36,17 +36,6 @@ class Library{
     constructor(){
         this.library = [];
     }
-
-    addBookToLibrary(){
-        const titleValue = titleInput.value;
-        const authorValue = authorInput.value;
-        const genreValue = genreInput.value;
-        const pagesValue = pagesInput.value;
-        const checkboxValue = readCheckbox.checked;
-        const newBook = new Book(titleValue, authorValue, genreValue, pagesValue, checkboxValue);
-        library.push(newBook);
-        sortLibrary();
-    }
     
     addBook(book){
         this.library.push(book);
@@ -60,51 +49,51 @@ class Library{
         const selectedValue = sortSelect.value;
         switch(selectedValue){
         case "newToOld":
-            library.sort((a, b) => b.createdDate - a.createdDate);
+            this.library.sort((a, b) => b.createdDate - a.createdDate);
         break ;
             
         case "oldToNew":
-            library.sort((a, b) => a.createdDate - b.createdDate);
+            this.library.sort((a, b) => a.createdDate - b.createdDate);
         break ;
 
         case "titlea2z":
-            library.sort((a, b) => a.title.localeCompare(b.title));
+            this.library.sort((a, b) => a.title.localeCompare(b.title));
         break ;
 
         case "titlez2a":
-            library.sort((a, b) => b.title.localeCompare(a.title));
+            this.library.sort((a, b) => b.title.localeCompare(a.title));
         break ;
 
         case "authora2z":
-            library.sort((a, b) => a.author.localeCompare(b.author));
+            this.library.sort((a, b) => a.author.localeCompare(b.author));
         break ;
 
         case "authorz2a":
-            library.sort((a, b) => b.author.localeCompare(a.author));
+            this.library.sort((a, b) => b.author.localeCompare(a.author));
         break ;
 
         case "genrea2z":
-            library.sort((a, b) => a.genre.localeCompare(b.genre));
+            this.library.sort((a, b) => a.genre.localeCompare(b.genre));
         break ;
 
         case "genrez2a":
-            library.sort((a, b) => b.genre.localeCompare(a.genre));
+            this.library.sort((a, b) => b.genre.localeCompare(a.genre));
         break;
 
         case "read":
-            library.sort((a, b) => b.read - a.read);
+            this.library.sort((a, b) => b.read - a.read);
         break ;
 
         case "unread":
-            library.sort((a, b) => a.read - b.read);
+            this.library.sort((a, b) => a.read - b.read);
         break ;        
         default:
-            library.sort((a, b) => b.createdDate - a.createdDate);
+            this.library.sort((a, b) => b.createdDate - a.createdDate);
         break;
         }
     }
 
-    get library(){
+    get allBooks(){
         return this.library; 
     }
 }
@@ -113,12 +102,11 @@ const myLibrary = new Library();
 
 
 //class to handle the UI of the library and display it. 
-class LibraryUI{
-    constructor(){
+// class LibraryUI{
+//     constructor(){
 
-    }
-}
-
+//     }
+// }
 
 
 //function to clear inputs on form when book added or modal closed
@@ -162,7 +150,7 @@ addBookForm.addEventListener("submit", (event) => {
     overlay.style.display = "none";
     addBookModal.style.display = "none";
 
-    myLibrary.add(book);
+    myLibrary.addBook(book);
     myLibrary.sortLibrary(sortSelect.value);
     displayBooks();
 });
@@ -171,7 +159,7 @@ addBookForm.addEventListener("submit", (event) => {
 //Loops through library array, creates book elements for objects, displays those books on page
 function displayBooks(){
     bookGrid.innerHTML = "";
-    for(const bookObj of myLibrary){
+    for(const bookObj of myLibrary.allBooks){
 
         const bookElement = document.createElement("div");
         bookElement.classList.add("book");
@@ -241,7 +229,7 @@ let idToDelete = null;
 //Yes, No and Close buttons on remove book modal
 const yesDeleteBtn = document.getElementById("yesDelete")
 yesDeleteBtn.addEventListener("click", () =>{            
-    myLibrary = myLibrary.filter(book => book.id !== idToDelete);
+    myLibrary.allBooks = myLibrary.allBooks.filter(book => book.id !== idToDelete);
     idToDelete = null;
     overlay.style.display = "none";
     removeBookModal.style.display = "none";
