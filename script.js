@@ -1,18 +1,4 @@
 
-//5 variables for user inputs on form 
-const titleInput = document.getElementById("titleInput");
-const authorInput = document.getElementById("authorInput");
-const genreInput = document.getElementById("genreInput");
-const pagesInput = document.getElementById("pagesInput");
-const readCheckbox = document.getElementById("readCheckbox");
-//Overlay, Grid, and Modal variables
-const overlay = document.getElementById("overlay");
-const bookGrid = document.getElementById("bookGrid");
-const addBookModal = document.getElementById("modal");
-const removeBookModal = document.getElementById("modal2");
-
-
-
 //Book class to handle individual book logic
 class Book{
     constructor(title, author, genre, pages, read){
@@ -31,7 +17,7 @@ class Book{
 }
 
 
-//Library class to handle the entire array fo books logic
+//Library class to handle the entire array of books logic
 class Library{
     constructor(){
         this.library = [];
@@ -104,161 +90,167 @@ const myLibrary = new Library();
 
 //class to handle the UI of the library and display it. 
 class LibraryUI{
-    constructor(){
+    constructor(myLibrary){
+        this.myLibrary = myLibrary;
 
+        //input values for form submission
+        this.titleInput = document.getElementById("titleInput");
+        this.authorInput = document.getElementById("authorInput");
+        this.genreInput = document.getElementById("genreInput");
+        this.pagesInput = document.getElementById("pagesInput");
+        this.readCheckbox = document.getElementById("readCheckbox");
+        
+        //Overlay, Grid, and Modal variables
+        this.overlay = document.getElementById("overlay");
+        this.bookGrid = document.getElementById("bookGrid");
+        this.addBookModal = document.getElementById("addNewBookModal");
+        this.removeBookModal = document.getElementById("deleteBookModal");
+
+        //Add book variables
+        this.newBook = document.getElementById("newBook");
+        this.addBookForm = document.getElementById("form");
+        this.closeModalBtn = document.getElementById("closeModalBtn");
+
+        this.yesDeleteBtn = document.getElementById("yesDelete")
+        this.noDeleteBtn = document.getElementById("noDelete")
+        this.close2ndModalBtn = document.getElementById("close2ndModalBtn");
+        this.sortSelect = document.getElementById("sortBy");
     }
-}
 
+    idToDelete = null;
 
-//function to clear inputs on form when book added or modal closed
+    clearForm(){
+        this.titleInput.value = "";
+        this.authorInput.value = "";
+        this.genreInput.value = "";
+        this.pagesInput.value = "";
+        this.readCheckbox.checked = "";
+    }
 
-function clearForm(){
-    titleInput.value = "";
-    authorInput.value = "";
-    genreInput.value = "";
-    pagesInput.value = "";
-    readCheckbox.checked = "";
-}
+    //Loops through library array, creates book elements for objects, displays those books on page
+    displayBooks(){
+        bookGrid.innerHTML = "";
+        for(const bookObj of myLibrary.allBooks){
 
-//onclick of newBook btn, display modal form for user inputs
-const newBook = document.getElementById("newBook");
-newBook.addEventListener("click", () => {
-    overlay.style.display = "flex";
-    removeBookModal.style.display = "none";
-    addBookModal.style.display = "block";
-    clearForm();
-});
+            const bookElement = document.createElement("div");
+            bookElement.classList.add("book");
+            bookElement.dataset.id = bookObj.id;
 
-//Button to close newBook modal
-const closeModalBtn = document.getElementById("closeModalBtn");
-closeModalBtn.addEventListener("click", () => {
-    overlay.style.display = "none";
-})
+            const titleh1 = document.createElement("h1");
+            titleh1.textContent = `${bookObj.title}`;
+            bookElement.appendChild(titleh1);
 
-//form submission event listener to call functions 
-const addBookForm = document.getElementById("form");
-addBookForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+            const authorh2 = document.createElement("h2");
+            authorh2.textContent = `By: ${bookObj.author}`;
+            bookElement.appendChild(authorh2);
 
-    const book = new Book(
-        titleInput.value,
-        authorInput.value,
-        genreInput.value,
-        pagesInput.value,
-        readCheckbox.checked
-    );
+            const genreh2 = document.createElement("h2");
+            genreh2.textContent = `Genre: ${bookObj.genre}`;
+            bookElement.appendChild(genreh2);
 
-    overlay.style.display = "none";
-    addBookModal.style.display = "none";
+            const pagesP = document.createElement("p");
+            pagesP.textContent = `Pages: ${bookObj.pages}`;
+            bookElement.appendChild(pagesP);
 
-    myLibrary.addBook(book);
-    myLibrary.sortLibrary(sortSelect.value);
-    displayBooks();
-});
-
-
-//Loops through library array, creates book elements for objects, displays those books on page
-function displayBooks(){
-    bookGrid.innerHTML = "";
-    for(const bookObj of myLibrary.allBooks){
-
-        const bookElement = document.createElement("div");
-        bookElement.classList.add("book");
-        bookElement.dataset.id = bookObj.id;
-
-        const titleh1 = document.createElement("h1");
-        titleh1.textContent = `${bookObj.title}`;
-        bookElement.appendChild(titleh1);
-
-        const authorh2 = document.createElement("h2");
-        authorh2.textContent = `By: ${bookObj.author}`;
-        bookElement.appendChild(authorh2);
-
-        const genreh2 = document.createElement("h2");
-        genreh2.textContent = `Genre: ${bookObj.genre}`;
-        bookElement.appendChild(genreh2);
-
-        const pagesP = document.createElement("p");
-        pagesP.textContent = `Pages: ${bookObj.pages}`;
-        bookElement.appendChild(pagesP);
-
-        const readButton = document.createElement("button");
-        if(bookObj.read){
-            readButton.classList.add("readButton")
-            readButton.textContent = "Read";
-        } else {
-            readButton.classList.add("notReadButton")
-            readButton.textContent = "Unread";
-        }   
-
-        readButton.addEventListener("click", ()=>{
+            const readButton = document.createElement("button");
             if(bookObj.read){
-                readButton.classList.remove("readButton");
-                readButton.classList.add("notReadButton");
-                readButton.textContent = "Unread";
-                bookObj.toggleRead();
-            } else{
-                readButton.classList.remove("notReadButton");
-                readButton.classList.add("readButton");
+                readButton.classList.add("readButton")
                 readButton.textContent = "Read";
-                bookObj.toggleRead();
-            }
-        });
-        bookElement.appendChild(readButton);
+            } else {
+                readButton.classList.add("notReadButton")
+                readButton.textContent = "Unread";
+            }   
 
-        const removeBookBtn = document.createElement("button");
-        removeBookBtn.classList.add("removeBookBtn");
-        removeBookBtn.textContent = "Remove Book";
-        removeBookBtn.addEventListener("click", (event) =>{
-            const bookElement = event.target.closest(".book");
-            idToDelete = bookElement.dataset.id;
+            readButton.addEventListener("click", ()=>{
+                if(bookObj.read){
+                    readButton.classList.remove("readButton");
+                    readButton.classList.add("notReadButton");
+                    readButton.textContent = "Unread";
+                    bookObj.toggleRead();
+                } else{
+                    readButton.classList.remove("notReadButton");
+                    readButton.classList.add("readButton");
+                    readButton.textContent = "Read";
+                    bookObj.toggleRead();
+                }
+            });
+            bookElement.appendChild(readButton);
 
-            overlay.style.display = "flex";
-            addBookModal.style.display = "none";
-            removeBookModal.style.display = "block";
-        })
-        bookElement.appendChild(removeBookBtn);
+            const removeBookBtn = document.createElement("button");
+            removeBookBtn.classList.add("removeBookBtn");
+            removeBookBtn.textContent = "Remove Book";
+            removeBookBtn.addEventListener("click", (event) =>{
+                const bookElement = event.target.closest(".book");
+                idToDelete = bookElement.dataset.id;
 
-        bookGrid.appendChild(bookElement);
+                overlay.style.display = "flex";
+                addBookModal.style.display = "none";
+                removeBookModal.style.display = "block";
+            })
+            bookElement.appendChild(removeBookBtn);
+
+            bookGrid.appendChild(bookElement);
+        }
     }
+
+    bindEvents(){
+        this.addBookForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const book = new Book(
+                this.titleInput.value,
+                this.authorInput.value,
+                this.genreInput.value,
+                this.pagesInput.value,
+                this.readCheckbox.checked
+            );
+
+            overlay.style.display = "none";
+            this.addBookModal.style.display = "none";
+
+            this.myLibrary.addBook(book);
+            this.myLibrary.sortLibrary(sortSelect.value);
+            this.displayBooks();
+        });
+
+        this.newBook.addEventListener("click", () => {
+            overlay.style.display = "flex";
+            this.removeBookModal.style.display = "none";
+            this.addBookModal.style.display = "block";
+            this.clearForm();
+        });
+
+        this.closeModalBtn.addEventListener("click", () => {
+            overlay.style.display = "none";
+        })
+
+        this.yesDeleteBtn.addEventListener("click", () =>{
+            this.myLibrary.removeBook(idToDelete);    
+            idToDelete = null;
+            overlay.style.display = "none";
+            this.removeBookModal.style.display = "none";
+            this.displayBooks();
+        })
+
+        this.noDeleteBtn.addEventListener("click", () =>{
+            overlay.style.display = "none";
+            this.removeBookModal.style.display = "none";
+            idToDelete = null;
+        })
+
+        this.close2ndModalBtn.addEventListener("click", () =>{
+            overlay.style.display = "none";
+        })
+
+        this.sortSelect.addEventListener("change", () =>{
+            this.myLibrary.sortLibrary(sortSelect.value);
+            this.displayBooks();
+        });
+    }
+
 }
 
-
-//global variable to remain null until removeBookBtn is pressed
-//will store dataset.id of book selected for removal when removeBookBtn is pressed
-let idToDelete = null;
-
-//Yes, No and Close buttons on remove book modal
-const yesDeleteBtn = document.getElementById("yesDelete")
-yesDeleteBtn.addEventListener("click", () =>{
-    myLibrary.removeBook(idToDelete);    
-    idToDelete = null;
-    overlay.style.display = "none";
-    removeBookModal.style.display = "none";
-    displayBooks();
-})
-
-const noDeleteBtn = document.getElementById("noDelete")
-noDeleteBtn.addEventListener("click", () =>{
-    overlay.style.display = "none";
-    removeBookModal.style.display = "none";
-    idToDelete = null;
-})
-
-const close2ndModalBtn = document.getElementById("close2ndModalBtn");
-close2ndModalBtn.addEventListener("click", () =>{
-    overlay.style.display = "none";
-})
-
-
-
-//Drop-down select list to sort library. Call sort function then re-display books.
-const sortSelect = document.getElementById("sortBy");
-sortSelect.addEventListener("change", () =>{
-    myLibrary.sortLibrary(sortSelect.value);
-    displayBooks();
-});
-
-
-
+const ui = new LibraryUI;
+ui.bindEvents();
+ui.displayBooks();
 

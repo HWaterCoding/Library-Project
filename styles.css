@@ -99,7 +99,7 @@ main{
     align-items: center;
 }
 
-#modal{
+#addNewBookModal{
     display: none;
     position: relative;
     background-color: rgb(212, 205, 205);
@@ -268,7 +268,7 @@ form label{
     background: var(--red-active);
 }
 
-#modal2{
+#deleteBookModal{
     display: none;
     flex-direction: column;
     position: relative;
@@ -279,12 +279,12 @@ form label{
     box-shadow: 0 0 10px 10px rgb(128, 121, 121);
 }
 
-#modal2 h1{
+#deleteBookModal h1{
     text-align: center;
     margin: 10px;
 }
 
-#modal2 div{
+#deleteBookModal div{
     display: flex;
     justify-content: center;
     align-items: center;
