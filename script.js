@@ -31,8 +31,7 @@ class Library{
         this.library = this.library.filter(book => book.id !== idToDelete);
     }
 
-    sortLibrary(){
-        const selectedValue = sortSelect.value;
+    sortLibrary(selectedValue){
         switch(selectedValue){
         case "newToOld":
             this.library.sort((a, b) => b.createdDate - a.createdDate);
@@ -115,9 +114,10 @@ class LibraryUI{
         this.noDeleteBtn = document.getElementById("noDelete")
         this.close2ndModalBtn = document.getElementById("close2ndModalBtn");
         this.sortSelect = document.getElementById("sortBy");
+        
+        this.idToDelete = null;
     }
 
-    idToDelete = null;
 
     clearForm(){
         this.titleInput.value = "";
@@ -181,14 +181,13 @@ class LibraryUI{
             removeBookBtn.textContent = "Remove Book";
             removeBookBtn.addEventListener("click", (event) =>{
                 const bookElement = event.target.closest(".book");
-                idToDelete = bookElement.dataset.id;
+                this.idToDelete = bookElement.dataset.id;
 
                 overlay.style.display = "flex";
-                addBookModal.style.display = "none";
-                removeBookModal.style.display = "block";
+                this.addBookModal.style.display = "none";
+                this.removeBookModal.style.display = "block";
             })
             bookElement.appendChild(removeBookBtn);
-
             bookGrid.appendChild(bookElement);
         }
     }
@@ -208,8 +207,8 @@ class LibraryUI{
             overlay.style.display = "none";
             this.addBookModal.style.display = "none";
 
-            this.myLibrary.addBook(book);
-            this.myLibrary.sortLibrary(sortSelect.value);
+            myLibrary.addBook(book);
+            myLibrary.sortLibrary(this.sortSelect.value);
             this.displayBooks();
         });
 
@@ -225,7 +224,7 @@ class LibraryUI{
         })
 
         this.yesDeleteBtn.addEventListener("click", () =>{
-            this.myLibrary.removeBook(idToDelete);    
+            this.myLibrary.removeBook(this.idToDelete);    
             idToDelete = null;
             overlay.style.display = "none";
             this.removeBookModal.style.display = "none";
@@ -250,7 +249,7 @@ class LibraryUI{
 
 }
 
-const ui = new LibraryUI;
+const ui = new LibraryUI();
 ui.bindEvents();
 ui.displayBooks();
 
