@@ -86,7 +86,6 @@ class Library{
 
 const myLibrary = new Library();
 
-
 //class to handle the UI of the library and display it. 
 class LibraryUI{
     constructor(myLibrary){
@@ -117,8 +116,8 @@ class LibraryUI{
         
         this.idToDelete = null;
     }
-
-
+    
+    //function to clear the form input values 
     clearForm(){
         this.titleInput.value = "";
         this.authorInput.value = "";
@@ -129,8 +128,9 @@ class LibraryUI{
 
     //Loops through library array, creates book elements for objects, displays those books on page
     displayBooks(){
-        bookGrid.innerHTML = "";
-        for(const bookObj of myLibrary.allBooks){
+        console.log("myLibrary is:", this.myLibrary);
+        this.bookGrid.innerHTML = "";
+        for(const bookObj of this.myLibrary.allBooks){
 
             const bookElement = document.createElement("div");
             bookElement.classList.add("book");
@@ -183,7 +183,7 @@ class LibraryUI{
                 const bookElement = event.target.closest(".book");
                 this.idToDelete = bookElement.dataset.id;
 
-                overlay.style.display = "flex";
+                this.overlay.style.display = "flex";
                 this.addBookModal.style.display = "none";
                 this.removeBookModal.style.display = "block";
             })
@@ -192,6 +192,7 @@ class LibraryUI{
         }
     }
 
+    //function to call on page load only to bind all eventListeners to cached DOM elements.
     bindEvents(){
         this.addBookForm.addEventListener("submit", (event) => {
             event.preventDefault();
@@ -204,52 +205,50 @@ class LibraryUI{
                 this.readCheckbox.checked
             );
 
-            overlay.style.display = "none";
+            this.overlay.style.display = "none";
             this.addBookModal.style.display = "none";
 
-            myLibrary.addBook(book);
-            myLibrary.sortLibrary(this.sortSelect.value);
+            this.myLibrary.addBook(book);
+            this.myLibrary.sortLibrary(this.sortSelect.value);
             this.displayBooks();
         });
 
         this.newBook.addEventListener("click", () => {
-            overlay.style.display = "flex";
+            this.overlay.style.display = "flex";
             this.removeBookModal.style.display = "none";
             this.addBookModal.style.display = "block";
             this.clearForm();
         });
 
         this.closeModalBtn.addEventListener("click", () => {
-            overlay.style.display = "none";
+            this.overlay.style.display = "none";
         })
 
         this.yesDeleteBtn.addEventListener("click", () =>{
             this.myLibrary.removeBook(this.idToDelete);    
-            idToDelete = null;
-            overlay.style.display = "none";
+            this.idToDelete = null;
+            this.overlay.style.display = "none";
             this.removeBookModal.style.display = "none";
             this.displayBooks();
         })
 
         this.noDeleteBtn.addEventListener("click", () =>{
-            overlay.style.display = "none";
+            this.overlay.style.display = "none";
             this.removeBookModal.style.display = "none";
-            idToDelete = null;
+            this.idToDelete = null;
         })
 
         this.close2ndModalBtn.addEventListener("click", () =>{
-            overlay.style.display = "none";
+            this.overlay.style.display = "none";
         })
 
         this.sortSelect.addEventListener("change", () =>{
-            this.myLibrary.sortLibrary(sortSelect.value);
+            this.myLibrary.sortLibrary(this.sortSelect.value);
             this.displayBooks();
         });
     }
-
 }
 
-const ui = new LibraryUI();
+const ui = new LibraryUI(myLibrary);
 ui.bindEvents();
 ui.displayBooks();
-
