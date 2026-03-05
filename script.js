@@ -1,4 +1,3 @@
-
 //Book class to handle individual book logic
 class Book{
     constructor(title, author, genre, pages, read){
@@ -22,6 +21,19 @@ class Library{
     constructor(){
         this.library = [];
     }
+
+    static sortStrategies = {
+        newToOld: (a, b) => b.createdDate - a.createdDate, 
+        oldToNew: (a, b) => a.createdDate - b.createdDate,
+        titlea2z: (a, b) => a.title.localeCompare(b.title),
+        titlez2a: (a, b) => b.title.localeCompare(a.title),
+        authora2z: (a, b) => a.author.localeCompare(b.author),
+        authorz2a: (a, b) => b.author.localeCompare(a.author),
+        genrea2z: (a, b) => a.genre.localeCompare(b.genre),
+        genrez2a: (a, b) => b.genre.localeCompare(a.genre),
+        read: (a, b) => b.read - a.read,
+        unread: (a, b) => a.read - b.read,
+    }
     
     addBook(book){
         this.library.push(book);
@@ -30,6 +42,8 @@ class Library{
     removeBook(idToDelete){
         this.library = this.library.filter(book => book.id !== idToDelete);
     }
+
+
 
     sortLibrary(selectedValue){
         switch(selectedValue){
@@ -128,7 +142,7 @@ class LibraryUI{
 
     //Loops through library array, creates book elements for objects, displays those books on page
     displayBooks(){
-        console.log("myLibrary is:", this.myLibrary);
+        // console.log("myLibrary is:", this.myLibrary);
         this.bookGrid.innerHTML = "";
         for(const bookObj of this.myLibrary.allBooks){
 
