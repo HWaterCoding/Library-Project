@@ -33,6 +33,8 @@ class Library{
         genrez2a: (a, b) => b.genre.localeCompare(a.genre),
         read: (a, b) => b.read - a.read,
         unread: (a, b) => a.read - b.read,
+        pagesh2l: (a, b) => b.pages - a.pages,
+        pagesl2h: (a, b) => a.pages - b.pages,
     }
     
     sortLibrary(selectedStrategy){
@@ -147,7 +149,7 @@ class LibraryUI{
             const removeBookBtn = document.createElement("button");
             removeBookBtn.classList.add("removeBookBtn");
             removeBookBtn.textContent = "Remove Book";
-            
+
             removeBookBtn.addEventListener("click", (event) =>{
                 const bookElement = event.target.closest(".book");
                 this.idToDelete = bookElement.dataset.id;
