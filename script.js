@@ -43,54 +43,9 @@ class Library{
         this.library = this.library.filter(book => book.id !== idToDelete);
     }
 
-
-
-    sortLibrary(selectedValue){
-        switch(selectedValue){
-        case "newToOld":
-            this.library.sort((a, b) => b.createdDate - a.createdDate);
-        break ;
-            
-        case "oldToNew":
-            this.library.sort((a, b) => a.createdDate - b.createdDate);
-        break ;
-
-        case "titlea2z":
-            this.library.sort((a, b) => a.title.localeCompare(b.title));
-        break ;
-
-        case "titlez2a":
-            this.library.sort((a, b) => b.title.localeCompare(a.title));
-        break ;
-
-        case "authora2z":
-            this.library.sort((a, b) => a.author.localeCompare(b.author));
-        break ;
-
-        case "authorz2a":
-            this.library.sort((a, b) => b.author.localeCompare(a.author));
-        break ;
-
-        case "genrea2z":
-            this.library.sort((a, b) => a.genre.localeCompare(b.genre));
-        break ;
-
-        case "genrez2a":
-            this.library.sort((a, b) => b.genre.localeCompare(a.genre));
-        break;
-
-        case "read":
-            this.library.sort((a, b) => b.read - a.read);
-        break ;
-
-        case "unread":
-            this.library.sort((a, b) => a.read - b.read);
-        break ;      
-
-        default:
-            this.library.sort((a, b) => b.createdDate - a.createdDate);
-        break;
-        }
+    sortLibrary(selectedStrategy){
+        const strategy = Library.sortStrategies[selectedStrategy] ?? Library.sortStrategies.newToOld;
+        this.library.sort(strategy);
     }
 
     get allBooks(){
