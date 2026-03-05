@@ -35,17 +35,17 @@ class Library{
         unread: (a, b) => a.read - b.read,
     }
     
+    sortLibrary(selectedStrategy){
+        const strategy = Library.sortStrategies[selectedStrategy] ?? Library.sortStrategies.oldToNew;
+        this.library.sort(strategy);
+    }
+
     addBook(book){
         this.library.push(book);
     }
 
     removeBook(idToDelete){
         this.library = this.library.filter(book => book.id !== idToDelete);
-    }
-
-    sortLibrary(selectedStrategy){
-        const strategy = Library.sortStrategies[selectedStrategy] ?? Library.sortStrategies.newToOld;
-        this.library.sort(strategy);
     }
 
     get allBooks(){
@@ -97,7 +97,6 @@ class LibraryUI{
 
     //Loops through library array, creates book elements for objects, displays those books on page
     displayBooks(){
-        // console.log("myLibrary is:", this.myLibrary);
         this.bookGrid.innerHTML = "";
         for(const bookObj of this.myLibrary.allBooks){
 
@@ -148,6 +147,7 @@ class LibraryUI{
             const removeBookBtn = document.createElement("button");
             removeBookBtn.classList.add("removeBookBtn");
             removeBookBtn.textContent = "Remove Book";
+            
             removeBookBtn.addEventListener("click", (event) =>{
                 const bookElement = event.target.closest(".book");
                 this.idToDelete = bookElement.dataset.id;
